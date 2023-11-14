@@ -13,6 +13,12 @@ fun NavController.navigateToManageSubscriptions(userId: Long) {
     this.navigate(navDestination)
 }
 
+fun Navigator.navigateToManageSubscriptions(userId: Long) {
+    val navDestination = NavDestination.ManageSubscriptions.destination
+        .replace("{userId}", userId.toString())
+    this.navigateTo(navDestination)
+}
+
 fun NavGraphBuilder.manageSubscriptionsScreen(
     popBackStack: () -> Unit
 ) {

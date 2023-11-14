@@ -9,6 +9,10 @@ fun NavController.navigateToAddNewUser() {
     this.navigate(NavDestination.AddNewUser.destination)
 }
 
+fun Navigator.navigateToAddNewUser() {
+    this.navigateTo(NavDestination.AddNewUser.destination)
+}
+
 fun NavGraphBuilder.addNewUserScreen(
     popBackStack: () -> Unit
 ) {

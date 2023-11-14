@@ -6,6 +6,7 @@ import com.example.myapplication.data.MyDatabase
 import com.example.myapplication.data.SubscriptionDao
 import com.example.myapplication.data.UserDao
 import com.example.myapplication.data.UserRepository
+import com.example.myapplication.navigation.Navigator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,4 +39,9 @@ object AppModule {
     @Provides
     @Singleton
     fun provideSubscriptionDao(db: MyDatabase) = db.subscriptionDao()
+
+
+    @Singleton
+    @Provides
+    fun providesNavigator() = Navigator()
 }

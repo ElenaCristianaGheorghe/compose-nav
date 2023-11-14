@@ -10,15 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.composables.common.TopBar
+import com.example.myapplication.viewModels.DetailsViewModel
 import com.example.myapplication.viewModels.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Details(
     userViewModel: UserViewModel = viewModel(LocalContext.current as ComponentActivity),
+    detailsViewModel: DetailsViewModel = viewModel(LocalContext.current as ComponentActivity),
     userId: Long,
-    navigateToSubscriptionOptions: (Long, Long?) -> Unit,
-    navigateToManageSubscriptions: (Long) -> Unit,
     popBackStack: () -> Unit
 ) {
     val user = userViewModel.getUserById(userId)
@@ -36,14 +36,19 @@ fun Details(
             }
             item {
                 Button(
-                    onClick = { navigateToSubscriptionOptions(user.id, userViewModel.getLatestSubByUserId(userId)) }
+                    onClick = {
+                        detailsViewModel.navigateToSubscriptionOptions(
+                            user.id,
+                            userViewModel.getLatestSubByUserId(userId)
+                        )
+                    }
                 ) {
                   Text(text = "Check latest subscription")
                 }
             }
             item {
                 Button(
-                    onClick = { navigateToManageSubscriptions(userId) }
+                    onClick = { detailsViewModel.navigateToManageSubscriptions(userId) }
                 ) {
                     Text(text = "Manage subscriptions")
                 }

@@ -15,14 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.composables.common.TopBar
+import com.example.myapplication.viewModels.HomeViewModel
 import com.example.myapplication.viewModels.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(
     userViewModel: UserViewModel = viewModel(LocalContext.current as ComponentActivity),
-    navigateToDetails: (Long) -> Unit,
-    navigateToAddNewUser: () -> Unit
+    homeViewModel: HomeViewModel = viewModel(LocalContext.current as ComponentActivity)
 ) {
     Scaffold(
         topBar = { TopBar(title = "Home", showNavigationIcon = false) }
@@ -30,7 +30,7 @@ fun Home(
         LazyColumn(contentPadding = it) {
             item {
                 Button(
-                    onClick = navigateToAddNewUser
+                    onClick = homeViewModel::navigateToAddNewUser
                 ) {
                     Text(text = "Insert new user")
                 }
@@ -39,7 +39,7 @@ fun Home(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { navigateToDetails(user.id) },
+                        .clickable { homeViewModel.navigateToDetails(user.id) },
                     text = user.name
                 )
             }

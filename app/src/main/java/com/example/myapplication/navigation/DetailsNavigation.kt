@@ -12,10 +12,12 @@ fun NavController.navigateToDetails(userId: Long) {
     this.navigate(navDestination)
 }
 
+fun Navigator.navigateToDetails(userId: Long) {
+    val navDestination = NavDestination.UserDetails.destination.replace("{userId}", userId.toString())
+    this.navigateTo(navDestination)
+}
 fun NavGraphBuilder.detailsScreen(
-    popBackStack: () -> Unit,
-    navigateToSubscriptionOptions: (Long, Long?) -> Unit,
-    navigateToManageSubscriptions: (Long) -> Unit
+    popBackStack: () -> Unit
 ) {
     composable(
         route = NavDestination.UserDetails.destination,
@@ -25,9 +27,7 @@ fun NavGraphBuilder.detailsScreen(
     ) {
         Details(
             userId = it.arguments?.getLong("userId") ?: 0,
-            navigateToSubscriptionOptions = navigateToSubscriptionOptions,
-            popBackStack = popBackStack,
-            navigateToManageSubscriptions = navigateToManageSubscriptions
+            popBackStack = popBackStack
         )
     }
 }

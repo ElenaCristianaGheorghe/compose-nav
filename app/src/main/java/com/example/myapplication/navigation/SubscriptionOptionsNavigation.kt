@@ -14,6 +14,13 @@ fun NavController.navigateToSubscriptionOptions(userId: Long, expirationDate: Lo
     this.navigate(navDestination)
 }
 
+fun Navigator.navigateToSubscriptionOptions(userId: Long, expirationDate: Long?) {
+    val navDestination = NavDestination.SubscriptionOptions.destination
+        .replace("{userId}", userId.toString())
+        .replace("{expirationDate}", expirationDate.toString())
+    this.navigateTo(navDestination)
+}
+
 fun NavGraphBuilder.subscriptionOptionsScreen(
     popBackStack: () -> Unit,
 ) {

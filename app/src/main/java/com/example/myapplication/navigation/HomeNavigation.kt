@@ -9,15 +9,14 @@ fun NavController.navigateToHome() {
     this.navigate(NavDestination.Home.destination)
 }
 
+fun Navigator.navigateToHome() {
+    this.navigateTo(NavDestination.Home.destination)
+}
+
 fun NavGraphBuilder.homeScreen(
-    navigateToDetails: (Long) -> Unit,
-    navigateToAddNewUser: () -> Unit
 ) {
     composable(route = NavDestination.Home.destination) {
-        Home(
-            navigateToDetails = navigateToDetails,
-            navigateToAddNewUser = navigateToAddNewUser
-        )
+        Home()
     }
 }
 

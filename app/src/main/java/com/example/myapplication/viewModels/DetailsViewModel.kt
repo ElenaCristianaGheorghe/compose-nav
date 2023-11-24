@@ -11,8 +11,8 @@ import javax.inject.Inject
 class DetailsViewModel @Inject constructor(
     private val navigator: Navigator
 ): ViewModel() {
-    fun navigateToSubscriptionOptions(userId: Long, expirationDate: Long?) =
-        navigator.navigateToSubscriptionOptions(userId, expirationDate)
+    fun navigateToSubscriptionOptions(subId: Long, expirationDate: Long?) =
+        navigator.navigateToSubscriptionOptions(subId, expirationDate)
 
-    fun navigateToManageSubscriptions(userId: Long) = navigator.navigateToManageSubscriptions(userId)
+    fun navigateToManageSubscriptions(subId: Long) = navigator.navigateToManageSubscriptions(subId)
 }

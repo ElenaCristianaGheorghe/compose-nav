@@ -7,26 +7,26 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.myapplication.composables.Details
 
-fun NavController.navigateToDetails(userId: Long) {
-    val navDestination = NavDestination.UserDetails.destination.replace("{userId}", userId.toString())
+fun NavController.navigateToDetails(subId: Long) {
+    val navDestination = NavDestination.SubDetails.destination.replace("{subId}", subId.toString())
     this.navigate(navDestination)
 }
 
-fun Navigator.navigateToDetails(userId: Long) {
-    val navDestination = NavDestination.UserDetails.destination.replace("{userId}", userId.toString())
+fun Navigator.navigateToDetails(subId: Long) {
+    val navDestination = NavDestination.SubDetails.destination.replace("{subId}", subId.toString())
     this.navigateTo(navDestination)
 }
 fun NavGraphBuilder.detailsScreen(
     popBackStack: () -> Unit
 ) {
     composable(
-        route = NavDestination.UserDetails.destination,
+        route = NavDestination.SubDetails.destination,
         arguments = listOf(
-            navArgument("userId") { type = NavType.LongType }
+            navArgument("subId") { type = NavType.LongType }
         )
     ) {
         Details(
-            userId = it.arguments?.getLong("userId") ?: 0,
+            subEntityId = it.arguments?.getLong("subId") ?: 0,
             popBackStack = popBackStack
         )
     }

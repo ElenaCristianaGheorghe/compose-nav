@@ -16,8 +16,9 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -33,25 +34,23 @@ import com.example.myapplication.composables.common.TopBar
 import com.example.myapplication.utils.collectAsStateLifecycleAware
 import com.example.myapplication.viewModels.SubViewModel
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun ManageSubscriptions(
+fun AddNewSub(
     subViewModel: SubViewModel = viewModel(LocalContext.current as ComponentActivity),
-    subEntityId: Long,
     popBackStack: () -> Unit,
 ) {
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
+    var subName by rememberSaveable { mutableStateOf("") }
     var subValidity by rememberSaveable { mutableLongStateOf(0L) }
 
-    val subEntity = subViewModel.getSubById(subEntityId)
-    val allSubs by subViewModel.loadPurchasedSubsBySubId(subEntityId).collectAsStateLifecycleAware()
-    val latestExpirationDate by subViewModel.loadLatestDetailsBySubId(subEntityId).collectAsStateLifecycleAware()
+    val subNumber by subViewModel.subsNumberStateFlow.collectAsStateLifecycleAware()
 
     Scaffold(
         topBar = {
             TopBar(
-                title = "Manage subscriptions",
+                title = "Add new subscription",
                 popBackStack = popBackStack
             )
         }
@@ -65,8 +64,10 @@ fun ManageSubscriptions(
         ) {
             item {
                 Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "All subscriptions purchased for ${subEntity.name}: $allSubs",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp),
+                    text = "Total subscriptions: $subNumber",
                     textAlign = TextAlign.Start,
                     fontSize = 14.sp
                 )
@@ -75,7 +76,27 @@ fun ManageSubscriptions(
                 TextField(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 12.dp),
+                        .padding(bottom = 12.dp),
+                    value = subName,
+                    onValueChange = { input -> subName = input },
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    keyboardActions = KeyboardActions(
+                        onDone = { keyboardController?.hide() }
+                    ),
+                    label = {
+                        Text(
+                            text = "Subscription name",
+                            textAlign = TextAlign.Start,
+                            fontSize = 14.sp
+                        )
+                    }
+                )
+            }
+            item {
+                TextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp),
                     value = if (subValidity > 0) subValidity.toString() else  "",
                     onValueChange = { input -> subValidity = input.toLong() },
                     keyboardOptions = KeyboardOptions(
@@ -87,7 +108,7 @@ fun ManageSubscriptions(
                     ),
                     label = {
                         Text(
-                            text = "Add new subscription (only if you don't have an active one)",
+                            text = "Subscription validity (months)",
                             textAlign = TextAlign.Start,
                             fontSize = 14.sp
                         )
@@ -96,12 +117,17 @@ fun ManageSubscriptions(
             }
             item {
                 Button(
+                    modifier = Modifier.padding(12.dp),
                     onClick = {
-                        if ((latestExpirationDate == null || latestExpirationDate!! < System.currentTimeMillis()) && subValidity > 0) {
-                            subViewModel.insertSubDetails(subEntityId, subValidity)
-                            Toast.makeText(context, "New subscription added", Toast.LENGTH_SHORT).show()
+                        if (subName.isNotEmpty()) {
+                            subViewModel.insertSub(subName, subValidity)
+                            keyboardController?.hide()
+                            Toast.makeText(context, "Subscription $subName", Toast.LENGTH_SHORT)
+                                .show()
+                            subName = ""
+                            subValidity = 0
                         } else {
-                            Toast.makeText(context, "Couldn't add a new subscription", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Invalid info", Toast.LENGTH_SHORT).show()
                         }
                     }
                 ) {

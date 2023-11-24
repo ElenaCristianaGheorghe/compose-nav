@@ -4,20 +4,22 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SubscriptionDao {
+    @Insert
+    fun insertAll(vararg subs: SubscriptionEntity)
+
+    @Query("SELECT * FROM subscriptions")
+    fun getSubs(): List<SubscriptionEntity>
+
+    @Query("SELECT * FROM subscriptions WHERE id = :id")
+    fun getSubById(id: Long): SubscriptionEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSubscription(sub: SubscriptionEntity): Long
+    suspend fun insertSub(sub: SubscriptionEntity): Long
 
-    @Query("SELECT expiration_date FROM subscriptions WHERE userId = :userId ORDER BY id DESC LIMIT 1")
-    fun getLatestSubByUserId(userId: Long): Long?
-
-    @Query("SELECT expiration_date FROM subscriptions WHERE userId = :userId ORDER BY id DESC LIMIT 1")
-    fun loadLatestSubByUserId(userId: Long): Flow<Long?>
-
-    @Query("SELECT COUNT(*) FROM subscriptions WHERE userId = :userId")
-    fun loadSubscriptionByUserId(userId: Long): Flow<Int?>
+    @Query("SELECT COUNT(*) FROM subscriptions")
+    fun loadSubsNumber(): Flow<Int>
 }

@@ -1,27 +1,36 @@
 package com.example.myapplication.composables
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.composables.common.TopBar
 import com.example.myapplication.viewModels.DetailsViewModel
-import com.example.myapplication.viewModels.UserViewModel
+import com.example.myapplication.viewModels.SubViewModel
+import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Details(
-    userViewModel: UserViewModel = viewModel(LocalContext.current as ComponentActivity),
+    subViewModel: SubViewModel = viewModel(LocalContext.current as ComponentActivity),
     detailsViewModel: DetailsViewModel = viewModel(LocalContext.current as ComponentActivity),
-    userId: Long,
+    subEntityId: Long,
     popBackStack: () -> Unit
 ) {
-    val user = userViewModel.getUserById(userId)
+    val subEntity = subViewModel.getSubById(subEntityId)
+
     Scaffold(
         topBar = {
             TopBar(
@@ -30,16 +39,28 @@ fun Details(
             )
         }
     ) {
-        LazyColumn(contentPadding = it) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp),
+            contentPadding = it,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             item {
-                Text(text = "Hello: ${user.name} (id: ${user.id}) creation time ${user.creationTime}")
+                Text(
+                    text = "Subscription: \n" + "" +
+                        "${subEntity.name} (id: ${subEntity.id}) - creation time: ${Date(subEntity.creationTime)}",
+                    textAlign = TextAlign.Start,
+                    fontSize = 14.sp
+                )
             }
             item {
                 Button(
+                    modifier = Modifier.padding(vertical = 12.dp),
                     onClick = {
                         detailsViewModel.navigateToSubscriptionOptions(
-                            user.id,
-                            userViewModel.getLatestSubByUserId(userId)
+                            subEntity.id,
+                            subViewModel.getLatestDetailsBySubId(subEntity.id)
                         )
                     }
                 ) {
@@ -48,7 +69,7 @@ fun Details(
             }
             item {
                 Button(
-                    onClick = { detailsViewModel.navigateToManageSubscriptions(userId) }
+                    onClick = { detailsViewModel.navigateToManageSubscriptions(subEntityId) }
                 ) {
                     Text(text = "Manage subscriptions")
                 }

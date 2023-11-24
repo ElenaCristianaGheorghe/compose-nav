@@ -7,15 +7,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.myapplication.composables.ManageSubscriptions
 
-fun NavController.navigateToManageSubscriptions(userId: Long) {
+fun NavController.navigateToManageSubscriptions(subId: Long) {
     val navDestination = NavDestination.ManageSubscriptions.destination
-        .replace("{userId}", userId.toString())
+        .replace("{subId}", subId.toString())
     this.navigate(navDestination)
 }
 
-fun Navigator.navigateToManageSubscriptions(userId: Long) {
+fun Navigator.navigateToManageSubscriptions(subId: Long) {
     val navDestination = NavDestination.ManageSubscriptions.destination
-        .replace("{userId}", userId.toString())
+        .replace("{subId}", subId.toString())
     this.navigateTo(navDestination)
 }
 
@@ -25,11 +25,11 @@ fun NavGraphBuilder.manageSubscriptionsScreen(
     composable(
         route = NavDestination.ManageSubscriptions.destination,
         arguments = listOf(
-            navArgument("userId") { type = NavType.LongType }
+            navArgument("subId") { type = NavType.LongType }
         )
     ) {
         ManageSubscriptions(
-            userId = it.arguments?.getLong("userId") ?: 0,
+            subEntityId = it.arguments?.getLong("subId") ?: 0,
             popBackStack = popBackStack,
         )
     }

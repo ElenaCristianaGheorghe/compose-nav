@@ -14,8 +14,9 @@ fun MyNavHost(
     ) {
         homeScreen()
         detailsScreen { navController.popBackStack() }
-        addNewUserScreen { navController.popBackStack() }
+        addNewSubScreen { navController.popBackStack() }
         subscriptionOptionsScreen { navController.popBackStack() }
         manageSubscriptionsScreen { navController.popBackStack() }
+        testFragmentScreen { navController.popBackStack() }
     }
 }

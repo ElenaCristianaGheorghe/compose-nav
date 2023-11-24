@@ -8,7 +8,8 @@ import androidx.room.PrimaryKey
 data class SubscriptionEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    @ColumnInfo(name = "expiration_date")
-    var expirationDate: Long,
-    val userId: Long
+    @ColumnInfo(name = "name")
+    val name: String,
+    @ColumnInfo(name = "creation_time")
+    val creationTime: Long = System.currentTimeMillis()
 )

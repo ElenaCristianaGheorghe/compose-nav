@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.myapplication.data.MyDatabase
 import com.example.myapplication.data.SubscriptionDao
-import com.example.myapplication.data.UserDao
-import com.example.myapplication.data.UserRepository
+import com.example.myapplication.data.SubscriptionDetailsDao
+import com.example.myapplication.data.SubRepository
 import com.example.myapplication.navigation.Navigator
 import dagger.Module
 import dagger.Provides
@@ -20,8 +20,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesUserRepository(userDao: UserDao, subscriptionDao: SubscriptionDao): UserRepository {
-        return UserRepository(userDao, subscriptionDao)
+    fun providesSubRepository(subscriptionDao: SubscriptionDao, subscriptionDetailsDao: SubscriptionDetailsDao): SubRepository {
+        return SubRepository(subscriptionDao, subscriptionDetailsDao)
     }
 
     @Provides
@@ -34,11 +34,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUserDao(db: MyDatabase) = db.userDao()
+    fun provideSubscriptionDao(db: MyDatabase) = db.subscriptionDao()
 
     @Provides
     @Singleton
-    fun provideSubscriptionDao(db: MyDatabase) = db.subscriptionDao()
+    fun provideSubscriptionDetailsDao(db: MyDatabase) = db.subscriptionDetailsDao()
 
 
     @Singleton

@@ -7,16 +7,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.myapplication.composables.SubscriptionOptions
 
-fun NavController.navigateToSubscriptionOptions(userId: Long, expirationDate: Long?) {
+fun NavController.navigateToSubscriptionOptions(subId: Long, expirationDate: Long?) {
     val navDestination = NavDestination.SubscriptionOptions.destination
-        .replace("{userId}", userId.toString())
+        .replace("{subId}", subId.toString())
         .replace("{expirationDate}", expirationDate.toString())
     this.navigate(navDestination)
 }
 
-fun Navigator.navigateToSubscriptionOptions(userId: Long, expirationDate: Long?) {
+fun Navigator.navigateToSubscriptionOptions(subId: Long, expirationDate: Long?) {
     val navDestination = NavDestination.SubscriptionOptions.destination
-        .replace("{userId}", userId.toString())
+        .replace("{subId}", subId.toString())
         .replace("{expirationDate}", expirationDate.toString())
     this.navigateTo(navDestination)
 }
@@ -27,7 +27,7 @@ fun NavGraphBuilder.subscriptionOptionsScreen(
     composable(
         route = NavDestination.SubscriptionOptions.destination,
         arguments = listOf(
-            navArgument("userId") { type = NavType.LongType },
+            navArgument("subId") { type = NavType.LongType },
             navArgument("expirationDate") {
                 type = NavType.LongType
                 defaultValue = 0
@@ -35,7 +35,7 @@ fun NavGraphBuilder.subscriptionOptionsScreen(
         )
     ) {
         SubscriptionOptions(
-            userId = it.arguments?.getLong("userId") ?: 0,
+            subEntityId = it.arguments?.getLong("subId") ?: 0,
             expirationDate = it.arguments?.getLong("expirationDate") ?: 0,
             popBackStack = popBackStack
         )

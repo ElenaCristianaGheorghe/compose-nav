@@ -10,7 +10,7 @@ class Navigator {
     private val _sharedFlow = MutableSharedFlow<String>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val sharedFlow = _sharedFlow.asSharedFlow()
 
-    fun navigateTo(navDestination: String) {
+        fun navigateTo(navDestination: String) {
         _sharedFlow.tryEmit(navDestination)
     }
 }

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.example.myapplication.app-mergeDebugResources-71:/layout/test_fragment.xml",
+        "source": "com.example.myapplication.app-main-74:/layout/test_fragment.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-mergeDebugResources-71:/layout/test_fragment_container.xml",
+        "source": "com.example.myapplication.app-main-74:/layout/test_fragment_container.xml"
+    }
+]

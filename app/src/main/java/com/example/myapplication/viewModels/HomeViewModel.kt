@@ -1,10 +1,8 @@
 package com.example.myapplication.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.navigation.Navigator
-import com.example.myapplication.navigation.navigateToAddNewSub
-import com.example.myapplication.navigation.navigateToDetails
-import com.example.myapplication.navigation.navigateToTestFragment
+import com.example.navigation.NavDestinationRoutes
+import com.example.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -12,7 +10,11 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val navigator: Navigator
 ): ViewModel() {
-     fun navigateToDetails(subId: Long) = navigator.navigateToDetails(subId)
-    fun navigateToAddNewUser() = navigator.navigateToAddNewSub()
-    fun navigateToTestFragment() = navigator.navigateToTestFragment()
+     fun navigateToDetails(subId: Long) {
+         val navDestinationRoutes = NavDestinationRoutes.SubDetails.destination
+             .replace("{subId}", subId.toString())
+         navigator.navigateTo(navDestinationRoutes)
+     }
+    fun navigateToAddNewUser() = navigator.navigateTo(NavDestinationRoutes.AddNewSub.destination)
+    fun navigateToTestFragment() = navigator.navigateTo(NavDestinationRoutes.TestFragment.destination)
 }

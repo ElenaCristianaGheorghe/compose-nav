@@ -14,3 +14,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "My Application"
 include ':app'
+include ':features'
+include ':features:navigation'
+include ':features:authentication'

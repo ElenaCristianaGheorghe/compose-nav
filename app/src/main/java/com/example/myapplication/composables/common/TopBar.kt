@@ -10,6 +10,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -18,17 +19,28 @@ fun TopBar(
     showNavigationIcon: Boolean = true,
     popBackStack: () -> Unit = {}
 ) {
+    val context = LocalContext.current
+
     TopAppBar(
-        title = { Text(title) },
+        title = {
+            Text(
+                title,
+                color = Color.White
+            )
+        },
         navigationIcon = {
             if (showNavigationIcon) {
                 IconButton(
                     onClick = popBackStack
                 ) {
-                    Icon(Icons.Rounded.ArrowBack, contentDescription = null)
+                    Icon(
+                        Icons.Rounded.ArrowBack,
+                        contentDescription = null,
+                        tint = Color.White
+                    )
                 }
             }
         },
-        colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Yellow)
+        colors = TopAppBarDefaults.smallTopAppBarColors(Color(0xFF018786))
     )
 }

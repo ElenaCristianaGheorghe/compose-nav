@@ -59,9 +59,9 @@ fun RegistrationScreen(
 
     ConstraintLayout(
         modifier = Modifier
-            .verticalScroll(rememberScrollState())
             .fillMaxSize()
             .padding(12.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         val (title, email, password, btn) = createRefs()
         createVerticalChain(title, email, password, btn, chainStyle = ChainStyle.Packed)

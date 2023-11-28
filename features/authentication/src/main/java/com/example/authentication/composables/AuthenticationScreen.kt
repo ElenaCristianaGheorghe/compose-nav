@@ -57,9 +57,9 @@ fun AuthenticationScreen(
 
     ConstraintLayout(
         modifier = Modifier
-            .verticalScroll(rememberScrollState())
             .fillMaxSize()
             .padding(12.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         val (title, email, password, authBtn, registerBtn) = createRefs()
         createVerticalChain(title, email, password, authBtn, registerBtn, chainStyle = ChainStyle.Packed)

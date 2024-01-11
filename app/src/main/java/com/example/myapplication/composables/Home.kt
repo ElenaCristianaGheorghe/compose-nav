@@ -1,5 +1,6 @@
 package com.example.myapplication.composables
 
+import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.secondactivity.SecondActivity
 import com.example.myapplication.composables.common.TopBar
 import com.example.myapplication.viewModels.HomeViewModel
 import com.example.myapplication.viewModels.SubViewModel
@@ -34,6 +36,8 @@ fun Home(
     subsViewModel: SubViewModel = viewModel(LocalContext.current as ComponentActivity),
     homeViewModel: HomeViewModel = viewModel(LocalContext.current as ComponentActivity)
 ) {
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             TopBar(title = "Subscriptions management",
@@ -103,6 +107,14 @@ fun Home(
                     onClick = homeViewModel::navigateToTestFragment
                 ) {
                     Text(text = "Navigate to Test Fragment Screen")
+                }
+            }
+            item {
+                Button(
+                    modifier = Modifier.padding(12.dp),
+                    onClick = { context.startActivity(Intent(context, SecondActivity::class.java)) }
+                ) {
+                    Text(text = "Navigate to another activity")
                 }
             }
         }

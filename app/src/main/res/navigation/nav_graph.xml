@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/second_activity_fragment">
+
+    <fragment
+        android:id="@+id/second_activity_fragment"
+        android:name="com.example.myapplication.secondactivity.SecondActivityFragment"
+        android:label="fragment_second_activity"
+        tools:layout="@layout/second_activity_fragment" >
+        <action
+            android:id="@+id/navigate_to_blank_fragment"
+            app:destination="@id/blank_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/blank_fragment"
+        android:name="com.example.myapplication.secondactivity.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/blank_fragment" />
+
+</navigation>

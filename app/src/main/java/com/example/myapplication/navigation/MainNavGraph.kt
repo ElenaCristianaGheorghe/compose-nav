@@ -10,7 +10,7 @@ import com.example.myapplication.composables.ManageSubscriptions
 import com.example.myapplication.composables.SubscriptionOptions
 import com.example.myapplication.composables.TestFragmentScreen
 import com.example.myapplication.databinding.TestFragmentContainerBinding
-import com.example.myapplication.fragments.TestFragment
+import com.example.myapplication.fragments.NavDestinationFragment
 import com.example.navigation.GraphRoot
 import com.example.navigation.NavDestinationRoutes
 import com.example.navigation.destinations.addNewSubScreen
@@ -57,7 +57,7 @@ fun NavGraphBuilder.mainNavGraph(
             TestFragmentScreen(
                 androidViewBindingFactory = TestFragmentContainerBinding::inflate,
                 androidViewBindingUpdate = {
-                    testFragmentContainerView.getFragment<TestFragment>()
+                    testFragmentContainerView.getFragment<NavDestinationFragment>()
                 },
                 popBackStack = navController::popBackStack,
             )

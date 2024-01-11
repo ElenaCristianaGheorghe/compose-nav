@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthenticationViewModel @Inject public constructor(
+class AuthenticationViewModel @Inject constructor(
     private val navigator: Navigator
 ): ViewModel() {
 

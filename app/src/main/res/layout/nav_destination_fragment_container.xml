@@ -2,7 +2,7 @@
 <layout>
     <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/test_fragment_container_view"
-        android:name="com.example.myapplication.fragments.TestFragment"
+        android:name="com.example.myapplication.fragments.NavDestinationFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.fragment.app.FragmentContainerView>

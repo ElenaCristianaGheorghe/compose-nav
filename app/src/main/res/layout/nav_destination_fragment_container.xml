@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/test_fragment_container_view"
+        android:id="@+id/nav_destination_container_view"
         android:name="com.example.myapplication.fragments.NavDestinationFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

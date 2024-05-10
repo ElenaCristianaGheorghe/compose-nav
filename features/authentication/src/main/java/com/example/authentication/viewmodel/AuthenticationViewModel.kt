@@ -1,9 +1,9 @@
 package com.example.authentication.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.navigation.GraphRoot
-import com.example.navigation.NavDestinationRoutes
 import com.example.navigation.Navigator
+import com.example.navigation.destinations.HomeDestination
+import com.example.navigation.destinations.RegistrationDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class AuthenticationViewModel @Inject constructor(
     ): Boolean {
         authInfoList.forEach { authInfo ->
             if (authInfo.first == email && authInfo.second == password) {
-                navigator.navigateTo(NavDestinationRoutes.Home.destination, true)
+                navigator.navigateTo(HomeDestination, true)
                 return true
             }
         }
@@ -32,7 +32,7 @@ class AuthenticationViewModel @Inject constructor(
         return false
     }
 
-    fun navigateToRegistration() = navigator.navigateTo(NavDestinationRoutes.Registration.destination)
+    fun navigateToRegistration() = navigator.navigateTo(RegistrationDestination)
 
     companion object {
         val CONST_AUTH_INFO = mutableListOf(

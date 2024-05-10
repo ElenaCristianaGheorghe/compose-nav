@@ -2,20 +2,18 @@ package com.example.navigation.destinations
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import com.example.navigation.NavDestinationRoutes
+import androidx.navigation.toRoute
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class ManageSubscriptionDestination(val subId: Long): Destination
 
 fun NavGraphBuilder.manageSubscriptionsScreen(
     content: @Composable (Long) -> Unit
 ) {
-    composable(
-        route = NavDestinationRoutes.ManageSubscriptions.destination,
-        arguments = listOf(
-            navArgument("subId") { type = NavType.LongType }
-        )
-    ) {
-        content(it.arguments?.getLong("subId") ?: 0)
+    composable<ManageSubscriptionDestination> {
+        val subId = it.toRoute<ManageSubscriptionDestination>().subId
+        content(subId)
     }
 }

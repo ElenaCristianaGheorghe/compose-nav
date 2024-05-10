@@ -17,7 +17,6 @@ import javax.inject.Inject
 class SubViewModel @Inject constructor(
     private val repository: SubRepository
 ): ViewModel() {
-
     fun insertSub(
         subName: String,
         subValidity: Long

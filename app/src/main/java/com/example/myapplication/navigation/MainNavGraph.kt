@@ -11,8 +11,8 @@ import com.example.myapplication.composables.SubscriptionOptions
 import com.example.myapplication.composables.TestFragmentScreen
 import com.example.myapplication.databinding.NavDestinationFragmentContainerBinding
 import com.example.myapplication.fragments.NavDestinationFragment
-import com.example.navigation.GraphRoot
-import com.example.navigation.NavDestinationRoutes
+import com.example.navigation.GraphRoute
+import com.example.navigation.destinations.HomeDestination
 import com.example.navigation.destinations.addNewSubScreen
 import com.example.navigation.destinations.detailsScreen
 import com.example.navigation.destinations.homeScreen
@@ -23,9 +23,8 @@ import com.example.navigation.destinations.testFragmentScreen
 fun NavGraphBuilder.mainNavGraph(
     navController: NavController
 ) {
-    navigation(
-        route = GraphRoot.MAIN,
-        startDestination = NavDestinationRoutes.Home.destination
+    navigation<GraphRoute.Main>(
+        startDestination = HomeDestination::class
     ) {
         homeScreen { Home() }
 

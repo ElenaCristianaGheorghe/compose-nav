@@ -20,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -34,7 +33,7 @@ import com.example.myapplication.composables.common.TopBar
 import com.example.myapplication.utils.collectAsStateLifecycleAware
 import com.example.myapplication.viewModels.SubViewModel
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNewSub(
     subViewModel: SubViewModel = viewModel(LocalContext.current as ComponentActivity),
